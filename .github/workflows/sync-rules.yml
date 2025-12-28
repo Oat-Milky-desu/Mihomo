@@ -1,0 +1,34 @@
+name: Sync Rule Providers
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Daily at 00:00 UTC (08:00 Beijing Time)
+  workflow_dispatch:      # Manual trigger
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Download rule providers
+        run: |
+          mkdir -p rules
+          
+          # Read URLs from rules.json using jq
+          jq -r '.rules[] | "\(.name)|\(.format)|\(.url)"' rules.json | while IFS='|' read -r name format url; do
+            echo "Downloading $name from $url"
+            curl -fsSL "$url" -o "rules/${name}.${format}"
+          done
+      
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add rules/
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: sync rule providers [skip ci]"
+            git push
+          fi

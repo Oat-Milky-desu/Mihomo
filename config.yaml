@@ -1,0 +1,228 @@
+proxy-providers:
+  Airport1:
+    url: ""
+    type: http
+    interval: 86400
+    health-check:
+      enable: true
+      url: https://www.gstatic.com/generate_204
+      interval: 300
+    proxy: 直连
+
+port: 7890
+socks-port: 7891
+redir-port: 7892
+mixed-port: 7893
+tproxy-port: 7894
+allow-lan: true
+bind-address: "*"
+ipv6: true
+unified-delay: true
+tcp-concurrent: true
+# interface-name: enp6s18
+log-level: warning
+find-process-mode: 'off'
+global-client-fingerprint: chrome
+keep-alive-idle: 600
+keep-alive-interval: 15
+profile:
+  store-selected: true
+  store-fake-ip: true
+
+external-controller: 0.0.0.0:9090
+secret: ""
+external-ui: "/etc/nikki/run/ui"
+external-ui-name: zashboard
+external-ui-url: "https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-pages.zip"
+
+
+sniffer:
+  enable: true
+  sniff:
+    HTTP:
+      ports: [80, 8080-8880]
+      override-destination: true
+    TLS:
+      ports: [443, 8443]
+    QUIC:
+      ports: [443, 8443]
+  force-domain:
+    - "+.v2ex.com"
+  skip-domain:
+    - "+.baidu.com"
+
+tun:
+  enable: true
+  # system/gvisor/mixed
+  stack: system
+  dns-hijack: ["any:53", "tcp://any:53"]
+  auto-route: true
+  auto-redirect: true
+  auto-detect-interface: true
+
+dns:
+  enable: true
+  listen: 0.0.0.0:1053
+  ipv6: true
+  respect-rules: false
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter-mode: blacklist
+  fake-ip-filter:
+    - "rule-set:private_domain,cn_domain"
+    - "+.msftconnecttest.com"
+    - "+.msftncsi.com"
+    - "time.*.com"
+    - "+.market.xiaomi.com"
+    - "+.milkylife.online"
+    - "+.xns.one"
+  default-nameserver:
+    - 223.5.5.5
+  proxy-server-nameserver:
+    - https://223.5.5.5/dns-query
+  # namesever尽量用运营商提供的DNS
+  nameserver:
+    - https://223.5.5.5/dns-query
+
+proxy-groups:
+  - {name: 🚀 默认代理, type: select, proxies: [♻️ 自动选择, ♻️ 台湾自动, ♻️ 日本自动, ♻️ 美国自动, 🇹🇼 台湾节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌐 全部节点, 直连]}
+  - {name: 📹 YouTube, type: select, proxies: [♻️ 美国自动, ♻️ 台湾自动, ♻️ 日本自动, ♻️ 自动选择, 🇹🇼 台湾节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌐 全部节点, 直连]}
+  - {name: 🍀 Google, type: select, proxies: [♻️ 台湾自动, ♻️ 日本自动, ♻️ 美国自动, ♻️ 自动选择, 🇹🇼 台湾节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌐 全部节点, 直连]}
+  - {name: 🤖 AIGC, type: select, proxies: [♻️ 台湾自动, ♻️ 日本自动, ♻️ 美国自动, ♻️ 自动选择, 🇹🇼 台湾节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌐 全部节点, 直连]}
+  - {name: 📹 Pikpak, type: select, proxies: [♻️ 美国自动, ♻️ 台湾自动, ♻️ 日本自动, ♻️ 自动选择, 🇹🇼 台湾节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌐 全部节点, 直连]}
+  - {name: 🐟 漏网之鱼, type: select, proxies: [🚀 默认代理, ♻️ 台湾自动, ♻️ 日本自动, ♻️ 美国自动, ♻️ 自动选择, 🇹🇼 台湾节点, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🌐 全部节点, 直连]}
+  - {name: 🇯🇵 日本节点, type: select, include-all: true, filter: "(?i)日|jp|japan"}
+  - {name: 🇹🇼 台湾节点, type: select, include-all: true, filter: "(?i)台|tw|taiwan"}
+  - {name: 🇺🇲 美国节点, type: select, include-all: true, filter: "(?i)美|us|unitedstates|united states"}
+  - {name: ♻️ 台湾自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(台|TW|(?i)Tai))^((?!(港|日|韩|新|深|美)).)*$"}
+  - {name: ♻️ 日本自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(日|JP|(?i)Japan))^((?!(港|台|韩|新|美)).)*$" }
+  - {name: ♻️ 美国自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(美|US|(?i)States|America))^((?!(港|台|日|韩|新)).)*$"}
+  - {name: ♻️ 自动选择, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "^((?!(直连)).)*$"}
+  - {name: 🌐 全部节点, type: select, include-all: true}
+
+rules:
+  - RULE-SET,AWAvenue-Ads-Rule,REJECT
+  - DOMAIN-SUFFIX,hanime1.me,♻️ 美国自动
+  - DOMAIN-SUFFIX,kchion.me,♻️ 美国自动
+  - RULE-SET,ehentai_domain,♻️ 美国自动
+  - RULE-SET,private_domain,直连
+  - RULE-SET,ai,🤖 AIGC
+  - RULE-SET,youtube_domain,📹 YouTube
+  - RULE-SET,pikpak_domain,📹 Pikpak
+  - RULE-SET,google_domain,🍀 Google
+  - RULE-SET,dlsite_domain,♻️ 日本自动
+  - RULE-SET,apple_domain,直连
+  - RULE-SET,steam_domain,直连
+  - RULE-SET,geolocation-!cn,🚀 默认代理
+  - RULE-SET,cn_domain,直连
+
+  - RULE-SET,private_ip,直连,no-resolve
+  - RULE-SET,apple_ip,直连,no-resolve
+  - RULE-SET,google_ip,🍀 Google,no-resolve
+  - RULE-SET,cn_ip,直连
+  
+  - MATCH,🐟 漏网之鱼
+
+rule-providers:
+    AWAvenue-Ads-Rule:
+        behavior: domain        
+        format: yaml
+        interval: 86400        
+        type: http
+        url: https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main//Filters/AWAvenue-Ads-Rule-Clash.yaml
+    ai:
+        behavior: domain
+        format: mrs
+        interval: 86400
+        type: http
+        url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ai-!cn.mrs
+    apple_domain:
+        behavior: domain
+        format: mrs
+        interval: 86400
+        type: http
+        url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple-cn.mrs
+    apple_ip:
+        behavior: ipcidr
+        format: mrs
+        interval: 86400
+        type: http
+        url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo-lite/geoip/apple.mrs
+    cn_domain:
+        behavior: domain
+        format: mrs
+        interval: 86400
+        type: http
+        url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs
+    cn_ip:
+        behavior: ipcidr
+        format: mrs
+        interval: 86400
+        type: http
+        url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs
+    dlsite_domain:
+        behavior: domain
+        format: mrs
+        interval: 86400
+        type: http
+        url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/dlsite.mrs
+    ehentai_domain:
+        behavior: domain
+        format: mrs
+        interval: 86400
+        type: http
+        url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/ehentai.mrs
+    geolocation-!cn:
+        behavior: domain
+        format: mrs
+        interval: 86400
+        type: http
+        url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs
+    google_domain:
+        behavior: domain
+        format: mrs
+        interval: 86400
+        type: http
+        url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs
+    google_ip:
+        behavior: ipcidr
+        format: mrs
+        interval: 86400
+        type: http
+        url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs
+    private_domain:
+        behavior: domain
+        format: mrs
+        interval: 86400
+        type: http
+        url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs
+    private_ip:
+        behavior: ipcidr
+        format: mrs
+        interval: 86400
+        type: http
+        url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.mrs
+    speedtest_domain:
+        behavior: domain
+        format: mrs
+        interval: 86400
+        type: http
+        url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/ookla-speedtest.mrs
+    steam_domain:
+        behavior: domain
+        format: mrs
+        interval: 86400
+        type: http
+        url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/steam@cn.mrs
+    youtube_domain:
+        behavior: domain
+        format: mrs
+        interval: 86400
+        type: http
+        url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs
+    pikpak_domain:
+        behavior: domain
+        format: mrs
+        interval: 86400
+        type: http
+        url: https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/pikpak.mrs

@@ -1,0 +1,89 @@
+{
+    "rules": [
+        {
+            "name": "AWAvenue-Ads-Rule",
+            "format": "yaml",
+            "url": "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Clash.yaml"
+        },
+        {
+            "name": "ai",
+            "format": "mrs",
+            "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ai-!cn.mrs"
+        },
+        {
+            "name": "apple_domain",
+            "format": "mrs",
+            "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple-cn.mrs"
+        },
+        {
+            "name": "apple_ip",
+            "format": "mrs",
+            "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo-lite/geoip/apple.mrs"
+        },
+        {
+            "name": "cn_domain",
+            "format": "mrs",
+            "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs"
+        },
+        {
+            "name": "cn_ip",
+            "format": "mrs",
+            "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs"
+        },
+        {
+            "name": "dlsite_domain",
+            "format": "mrs",
+            "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/dlsite.mrs"
+        },
+        {
+            "name": "ehentai_domain",
+            "format": "mrs",
+            "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/ehentai.mrs"
+        },
+        {
+            "name": "geolocation-!cn",
+            "format": "mrs",
+            "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs"
+        },
+        {
+            "name": "google_domain",
+            "format": "mrs",
+            "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs"
+        },
+        {
+            "name": "google_ip",
+            "format": "mrs",
+            "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs"
+        },
+        {
+            "name": "private_domain",
+            "format": "mrs",
+            "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs"
+        },
+        {
+            "name": "private_ip",
+            "format": "mrs",
+            "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.mrs"
+        },
+        {
+            "name": "speedtest_domain",
+            "format": "mrs",
+            "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/ookla-speedtest.mrs"
+        },
+        {
+            "name": "steam_domain",
+            "format": "mrs",
+            "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/steam@cn.mrs"
+        },
+        {
+            "name": "youtube_domain",
+            "format": "mrs",
+            "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs"
+        },
+        {
+            "name": "pikpak_domain",
+            "format": "mrs",
+            "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/pikpak.mrs"
+        }
+    ]
+}
