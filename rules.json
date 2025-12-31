@@ -84,6 +84,11 @@
             "name": "pikpak_domain",
             "format": "mrs",
             "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/pikpak.mrs"
+        },
+        {
+            "name": "connectivity-check",
+            "format": "mrs",
+            "url": "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/connectivity-check.mrs"
         }
     ]
 }
